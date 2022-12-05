@@ -1,4 +1,4 @@
-package com.FoodTraker.FoodTraker;
+package com.FoodTracker.FoodTracker;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

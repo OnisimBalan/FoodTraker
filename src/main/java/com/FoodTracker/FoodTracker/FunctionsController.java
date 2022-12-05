@@ -1,4 +1,4 @@
-package com.FoodTraker.FoodTraker;
+package com.FoodTracker.FoodTracker;
 
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,7 @@ public class FunctionsController {
     }
      @GetMapping(path = "/")
     public String StartPage(){
-        return "view/index.html";
+        return "index.html";
     }
     @PostMapping(path = "/post")
     public String postData(@RequestBody @Validated String data1){
