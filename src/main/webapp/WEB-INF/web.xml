@@ -26,9 +26,9 @@
 
     <servlet-mapping>
         <!-- Provide a Servlet Name that you want to map -->
-        <servlet-name>viewresolver-dispatcher</servlet-name>
+        <servlet-name>localhost</servlet-name>
         <!-- Provide a url pattern -->
-        <url-pattern>/demo.com/*</url-pattern>
+        <url-pattern>templates/redirect.html</url-pattern>
     </servlet-mapping>
 
 </web-app>
