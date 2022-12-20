@@ -1,11 +1,23 @@
 package com.FoodTracker.FoodTracker;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "customer")
 public class Utilizator extends OnlineFoodTrackSystem{
-         int id;
+    @Id
+    @SequenceGenerator(
+            name = "customer_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            generator = "customer_sequence",
+            strategy = GenerationType.SEQUENCE
+    )
+        private Long id;
          String nume, prenume, email,parola, adresa, telefon;
     public Utilizator(){
         super();
-        id = 0;
         nume = " ";
         prenume = " ";
         email = " ";
@@ -13,9 +25,8 @@ public class Utilizator extends OnlineFoodTrackSystem{
         adresa = " ";
         telefon = " ";
     }
-    public Utilizator(int id, String nume, String prenume, String email, String parola, String adresa, String telefon,String user,String pass) {
+    public Utilizator( String nume, String prenume, String email, String parola, String adresa, String telefon,String user,String pass) {
        super(user, pass);
-        this.id = id;
         this.nume = nume;
         this.prenume = prenume;
         this.email = email;
@@ -27,4 +38,7 @@ public boolean Verificare(){
         return true;
 }
 
+    public Long getId() {
+        return id;
+    }
 }

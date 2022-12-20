@@ -1,5 +1,8 @@
 package com.FoodTracker.FoodTracker;
 
+import jakarta.persistence.*;
+
+
 public class OnlineFoodTrackSystem {
     protected String username, password;
     public OnlineFoodTrackSystem(){
@@ -17,7 +20,6 @@ public class OnlineFoodTrackSystem {
     public String getPassword(){
         return getPassword();
     }
-
     public boolean Login(){
         return false;
     }
@@ -27,5 +29,6 @@ public class OnlineFoodTrackSystem {
     public boolean Logout(){
        return false;
     }
+
 }
 

@@ -1,18 +1,21 @@
 package com.FoodTracker.FoodTracker;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Restaurant {
-    int id;
+    int rId;
     String name,address, descriere, meniu;
 
     public Restaurant(){
-        this.id = 0;
+        this.rId = 0;
         this.name =" ";
         this.address =" ";
         this.descriere = " ";
         this.meniu = " ";
     }
-    public Restaurant(int id, String name, String address, String descriere, String meniu){
-        this.id = id;
+    public Restaurant(int rId, String name, String address, String descriere, String meniu){
+        this.rId = rId;
         this.name = name;
         this.address = address;
         this.descriere = descriere;
