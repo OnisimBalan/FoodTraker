@@ -31,8 +31,8 @@ async function getData(url = '') {
     });
     return response.json(); // parses JSON response into native JavaScript objects
 }
-
-$("#SubmitUser1").click(function () {
+//ADDUSERS
+$("#users").click(function () {
 var nume = "Diana"
 postData("/adaugaUtilizator",nume)
         .then((data) => {
@@ -40,8 +40,34 @@ postData("/adaugaUtilizator",nume)
             return data;
         });
   });
-
-
+//ADDFOOD
+$("#food").click(function () {
+  var nume = "Diana"
+  postData("/adaugaUtilizator",nume)
+          .then((data) => {
+              console.log(data);
+              return data;
+          });
+    });
+//ADDRESTAURANTS
+$("#restaurants").click(function () {
+    var nume = "Diana"
+    postData("/adaugaUtilizator",nume)
+            .then((data) => {
+                console.log(data);
+                return data;
+            });
+      });
+//ohers
+$("#other").click(function () {
+var nume = "Diana"
+postData("/adaugaUtilizator",nume)
+        .then((data) => {
+            console.log(data);
+            return data;
+        });
+  });
+//submit
 $("#SubmitUser").click(function () {
   const num =  $("#UserName").val();
   const ema =   $("#Email").val();
