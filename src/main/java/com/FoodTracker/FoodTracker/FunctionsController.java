@@ -4,25 +4,27 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path ="/api/functions")
+@RequestMapping(path ="/")
 public class FunctionsController {
-    public String data;
-    @GetMapping(path = "/index.html")
-    public String Hello0(){
-        return "Working0";
-    }
-     @GetMapping(path = "/")
-    public String StartPage(){
-        return "index.html";
-    }
+    Utilizator utilizator =  new Utilizator();
     @PostMapping(path = "/post")
-    public String postData(@RequestBody @Validated String data1){
-        data = data1;
+    public String postData(@RequestBody @Validated Utilizator utilizator1){
+        utilizator = utilizator1;
+        String feedback = "Success!";
+        System.out.println(utilizator1);
+        return feedback;
+    }
+    @PostMapping(path ="/adaugaUtilizator")
+    public String adaugaUtilizator(@RequestBody @Validated String utilizator1){
+
+        System.out.println(utilizator1);
+
         String feedback = "Success!";
         return feedback;
     }
-    @GetMapping(path ="/get")
-    public String GetData(){
-        return data;
+
+    @GetMapping(path ="/getUser")
+    public Utilizator GetData(){
+        return utilizator;
     }
 }

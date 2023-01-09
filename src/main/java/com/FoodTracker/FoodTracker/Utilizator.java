@@ -15,20 +15,16 @@ public class Utilizator extends OnlineFoodTrackSystem{
             strategy = GenerationType.SEQUENCE
     )
         private Long id;
-         String nume, prenume, email,parola, adresa, telefon;
+         String nume, email,parola, adresa, telefon;
     public Utilizator(){
-        super();
         nume = " ";
-        prenume = " ";
         email = " ";
         parola = " ";
         adresa = " ";
         telefon = " ";
     }
-    public Utilizator( String nume, String prenume, String email, String parola, String adresa, String telefon,String user,String pass) {
-       super(user, pass);
+    public Utilizator( String nume, String email, String parola, String adresa, String telefon) {
         this.nume = nume;
-        this.prenume = prenume;
         this.email = email;
         this.parola = parola;
         this.adresa = adresa;

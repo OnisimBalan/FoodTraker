@@ -15,7 +15,6 @@ async function postData(url = '', data = {}) {
     });
     return response.json(); // parses JSON response into native JavaScript objects
 }
-
 async function getData(url = '') {
     // Default options are marked with *
     const response = await fetch(url, {
@@ -33,26 +32,33 @@ async function getData(url = '') {
     return response.json(); // parses JSON response into native JavaScript objects
 }
 
-$("#btn1").click(function () {
-var obj = $("#data").val();
-postData("/api/functions/post", {obj : obj})
+$("#SubmitUser1").click(function () {
+var nume = "Diana"
+postData("/adaugaUtilizator",nume)
         .then((data) => {
-            $("#pre").text(data);
+            console.log(data);
             return data;
         });
   });
 
-$("#btn2").click(function () {
-getData("/api/functions/get")
+
+$("#SubmitUser").click(function () {
+  const num =  $("#UserName").val();
+  const ema =   $("#Email").val();
+  const pass =   $("#Password").val();
+  const ad =   $("#Adresa").val();
+  const tel =   $("#Telefon").val();
+      const utilizator1 = {
+          nume:num,
+          email:ema,
+          parola:pass,
+          adresa:ad,
+          telefon:tel
+      }
+postData("/post",utilizator1)
         .then((data) => {
-          var span = $(`
-                    <span>
-                        <td>${data.obj}</td>
-                    </span>`);
-            $("#result").append(span);
             console.log(data);
             return data;
         });
-$("#data").val("");
  });
 

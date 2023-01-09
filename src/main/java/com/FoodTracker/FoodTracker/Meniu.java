@@ -1,15 +1,11 @@
 package com.FoodTracker.FoodTracker;
 
-public class Meniu extends Restaurant{
-    String dish;
-    int timp;
-    public Meniu(String dish, int timp,int rId, String name, String address, String descriere, String meniu){
-        super(rId,name,address,descriere,meniu);
-        this.dish = dish;
-        this.timp = timp;
-    }
+import java.util.List;
 
-    public boolean Preparare() {
-    return false;
+public class Meniu extends Restaurant{
+    List<String> preparate;
+    public Meniu(String preparat,int rId, String name, String address, String descriere) {
+        super(rId, name, address, descriere);
+            this.preparate.add(preparat);
     }
 }

@@ -1,33 +1,27 @@
 package com.FoodTracker.FoodTracker;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Restaurant {
     int rId;
-    String name,address, descriere, meniu;
+    String name,address, descriere;
+    Meniu meniu;
 
     public Restaurant(){
         this.rId = 0;
         this.name =" ";
         this.address =" ";
         this.descriere = " ";
-        this.meniu = " ";
     }
-    public Restaurant(int rId, String name, String address, String descriere, String meniu){
+    public Restaurant(int rId, String name, String address, String descriere){
         this.rId = rId;
         this.name = name;
         this.address = address;
-        this.descriere = descriere;
-        this.meniu = meniu;
+        this.descriere = descriere;;
 
-    }
-
-    public boolean PreluareComanda(){
-        return true;
-    }
-    public boolean PreparareComanda(){
-        return true;
     }
     public boolean TrimiteComanda(){
         return false;
