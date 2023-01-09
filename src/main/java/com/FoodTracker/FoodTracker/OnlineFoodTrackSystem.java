@@ -1,8 +1,5 @@
 package com.FoodTracker.FoodTracker;
 
-import jakarta.persistence.*;
-
-
 public class OnlineFoodTrackSystem {
     protected String username, password;
     public OnlineFoodTrackSystem(){
