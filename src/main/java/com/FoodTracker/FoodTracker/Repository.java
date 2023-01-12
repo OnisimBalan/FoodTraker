@@ -11,7 +11,7 @@ public class Repository{
                 String url = "jdbc:mysql://localhost:3306/foodtracker";
                 String user="root";
                 String password = "";
-                Class.forName("com.mysql.jdbc.Driver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection connection  = getConnection(url,user,password);
 
                 // Create a statement object
