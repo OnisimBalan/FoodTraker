@@ -15,7 +15,7 @@ public class Repository{
                 Connection connection  = getConnection(url,user,password);
 
                 // Create a statement object
-                Statement statement = connection.createStatement();
+            Statement statement = connection.createStatement();
             Statement stmt = connection.createStatement();
 
                 // Execute a SELECT statement

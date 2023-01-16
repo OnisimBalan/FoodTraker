@@ -7,14 +7,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path ="/")
 public class FunctionsController {
     Utilizator utilizator =  new Utilizator();
-    @PostMapping(path = "/post")
+
+
+
+    @PostMapping(path = "/newUser")
     public String postData(@RequestBody @Validated Utilizator utilizator1){
         utilizator = utilizator1;
         String feedback = "Success!";
         System.out.println(utilizator1);
         return feedback;
     }
-    @PostMapping(path ="/adaugaUtilizator")
+    @PostMapping(path ="/addUser")
     public String adaugaUtilizator(@RequestBody @Validated String utilizator1){
 
         System.out.println(utilizator1);

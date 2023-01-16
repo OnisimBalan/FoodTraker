@@ -31,42 +31,66 @@ async function getData(url = '') {
     });
     return response.json(); // parses JSON response into native JavaScript objects
 }
+//Globals
+var MainMenu = [];
+var Count = 0;
+
 //ADDUSERS
-$("#users").click(function () {
-var nume = "Diana"
-postData("/adaugaUtilizator",nume)
+$("#AddUser").click(function () {
+ const name =  $("#EmailIn").val();
+ const password =  $("#PasswordIn").val();
+ user = {
+  name: name,
+  password: password
+  };
+postData("/addUser",user)
         .then((data) => {
             console.log(data);
             return data;
         });
   });
 //ADDFOOD
-$("#food").click(function () {
-  var nume = "Diana"
-  postData("/adaugaUtilizator",nume)
-          .then((data) => {
-              console.log(data);
-              return data;
-          });
-    });
+$("#AddMenu").click(function () {
+ const name =  $("#MenuName").val();
+ const desc =   $("#DescribeMenu").val();
+
+ if(name !="" | desc !=""){
+    Count = Count + 1;
+    $("#MenusCount").html(Count);
+ }
+  menu = {
+  name: name,
+  description: desc
+  };
+
+  MainMenu.push(menu);
+
+  $("#MenuName").val("");
+  $("#DescribeMenu").val("");
+  });
 //ADDRESTAURANTS
-$("#restaurants").click(function () {
-    var nume = "Diana"
-    postData("/adaugaUtilizator",nume)
+$("#AddRest").click(function () {
+    count = 0;
+    const name =  $("#RestaurantName").val();
+    const adress =  $("#RestaurantAdress").val();
+    const desc =   $("#DescribeRestaurant").val();
+    const menus = MainMenu;
+
+    const rest = {
+         name:name,
+         adress:adress,
+         description:desc,
+         menus:menus,
+    }
+    postData("/addRestaurants",rest)
             .then((data) => {
                 console.log(data);
                 return data;
             });
+    $("#RestaurantName").val("");
+    $("#RestaurantAdress").val("");
+    $("#DescribeRestaurant").val("");
       });
-//ohers
-$("#other").click(function () {
-var nume = "Diana"
-postData("/adaugaUtilizator",nume)
-        .then((data) => {
-            console.log(data);
-            return data;
-        });
-  });
 //submit
 $("#SubmitUser").click(function () {
   const num =  $("#UserName").val();
@@ -74,17 +98,72 @@ $("#SubmitUser").click(function () {
   const pass =   $("#Password").val();
   const ad =   $("#Adresa").val();
   const tel =   $("#Telefon").val();
-      const utilizator1 = {
+      const newUser = {
           nume:num,
           email:ema,
           parola:pass,
           adresa:ad,
           telefon:tel
       }
-postData("/post",utilizator1)
+postData("/newUser",newUser)
         .then((data) => {
             console.log(data);
             return data;
         });
  });
+//viewrestaurants
+$("#RestaurantId").click(function () {
+getData("/takeRestaurants")
+        .then((data) => {
+ var table = $("#UserName");
+    table.html("");
+    data.forEach((item) => {
+        var tr = $(`
+            <tr class="tr-table">
+                <td>${item.id}</td>
+                <td>-</td>
+                <td>${item.searchKey}</td>
+            </tr>`);
+        var linksTd = $(`<td class="td-elements"></td>`);
+        tr.append(linksTd);
+
+        if (item.links && item.links.length) {
+            item.links.forEach(t => {
+                linksTd.append(`<a class="link-result" href="${t}">${t}</a>`)
+            })
+        }
+
+        table.append(tr);
+    });
+            return data;
+        });
+});
+//takeMenus
+$("#menus").click(function () {
+getData("/takeRestaurants")
+        .then((data) => {
+ var table = $("#UserName");
+    table.html("");
+    data.forEach((item) => {
+        var tr = $(`
+            <tr class="tr-table">
+                <td>${item.id}</td>
+                <td>-</td>
+                <td>${item.searchKey}</td>
+            </tr>`);
+        var linksTd = $(`<td class="td-elements"></td>`);
+        tr.append(linksTd);
+
+        if (item.links && item.links.length) {
+            item.links.forEach(t => {
+                linksTd.append(`<a class="link-result" href="${t}">${t}</a>`)
+            })
+        }
+
+        table.append(tr);
+    });
+            return data;
+        });
+});
+
 

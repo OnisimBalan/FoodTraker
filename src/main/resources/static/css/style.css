@@ -1963,3 +1963,12 @@ a:focus {
 .footer .copyright p a:hover {
     color: #719a0a;
 }
+
+.food-item-sing-in {
+    width: 100%;
+    padding: 50px 30px 30px;
+    text-align: center;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, .08);
+}
