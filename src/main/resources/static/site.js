@@ -35,6 +35,7 @@ async function getData(url = '') {
 var MainMenu = [];
 var Count = 0;
 
+
 //ADDUSERS
 $("#AddUser").click(function () {
  const name =  $("#EmailIn").val();
@@ -43,54 +44,62 @@ $("#AddUser").click(function () {
   name: name,
   password: password
   };
-postData("/addUser",user)
+
+postData("/addUser", user)
         .then((data) => {
-            console.log(data);
-            return data;
+        console.log(data);
+            if(data == 1){
+             location.href = "http://localhost:8080/templates/menu.html";
+            }
+            else{
+            alert("Invalid user!");
+            }
         });
   });
+
+
+
 //ADDFOOD
 $("#AddMenu").click(function () {
- const name =  $("#MenuName").val();
- const desc =   $("#DescribeMenu").val();
+    var file = document.getElementById("IncImg").files[0];
+    data= {
+    name="",
+    Description="",
+    PictureUrl = file
+    }
+    postData("/restaurant/createMenuItem", data)
+            .then((data) => {
+            return data;
+        });
 
- if(name !="" | desc !=""){
-    Count = Count + 1;
-    $("#MenusCount").html(Count);
- }
-  menu = {
-  name: name,
-  description: desc
-  };
-
-  MainMenu.push(menu);
-
-  $("#MenuName").val("");
-  $("#DescribeMenu").val("");
   });
+
+
 //ADDRESTAURANTS
 $("#AddRest").click(function () {
-    count = 0;
-    const name =  $("#RestaurantName").val();
-    const adress =  $("#RestaurantAdress").val();
-    const desc =   $("#DescribeRestaurant").val();
-    const menus = MainMenu;
+    const Name =  $("#RestaurantName").val();
+    const Address =  $("#RestaurantAdress").val();
+    const Description =   $("#DescribeRestaurant").val();
 
-    const rest = {
-         name:name,
-         adress:adress,
-         description:desc,
-         menus:menus,
+    const data = {
+         Name:Name,
+         Address:Address,
+         Description:Description,
     }
-    postData("/addRestaurants",rest)
-            .then((data) => {
-                console.log(data);
-                return data;
+
+    console.log(data);
+    postData("/restaurant/createRestaurant", data)
+            .then((response) => {
+                console.log(response);
+                return response;
             });
+
     $("#RestaurantName").val("");
     $("#RestaurantAdress").val("");
     $("#DescribeRestaurant").val("");
-      });
+});
+
+
 //submit
 $("#SubmitUser").click(function () {
   const num =  $("#UserName").val();
@@ -105,14 +114,45 @@ $("#SubmitUser").click(function () {
           adresa:ad,
           telefon:tel
       }
-postData("/newUser",newUser)
+postData("/newUser", newUser)
         .then((data) => {
-            console.log(data);
+            alert(data);
             return data;
         });
+
+    $("#UserName").val("");
+    $("#Email").val("");
+    $("#Password").val("")
+    $("#Adresa").val("");
+    $("#Telefon").val("");
  });
+
 //viewrestaurants
-$("#RestaurantId").click(function () {
+function load(){
+getData("/restaurant/getRestaurants")
+        .then((data) => {
+        showRestaurants(data);
+     return data;
+    });
+}
+
+function showRestaurants(data) {
+     $('#Restaurants').val("");
+    let output = '<div class="container">';
+      data.forEach((item) => {
+         output += `
+               <div>${item.Id}</div>
+               <div>${item.Name}</div>
+               <div>${item.Address}</div>
+               <div>${item.Description}</div>
+         `;
+        });
+
+    $('#Restaurants').append = output;
+}
+
+//takeMenus
+$("#menus").click(function () {
 getData("/takeRestaurants")
         .then((data) => {
  var table = $("#UserName");
@@ -122,7 +162,7 @@ getData("/takeRestaurants")
             <tr class="tr-table">
                 <td>${item.id}</td>
                 <td>-</td>
-                <td>${item.searchKey}</td>
+                <td>${item}</td>
             </tr>`);
         var linksTd = $(`<td class="td-elements"></td>`);
         tr.append(linksTd);
@@ -138,32 +178,23 @@ getData("/takeRestaurants")
             return data;
         });
 });
-//takeMenus
-$("#menus").click(function () {
-getData("/takeRestaurants")
+
+$("#asd").click(function () {
+location.href = "http://localhost:8080/templates/menu.html";
+ const parola =  $("#PasswordIn").val();
+ const email =   $("#EmailIn").val();
+
+ const loginUser = {
+          email:email,
+          parola:parola,
+ }
+
+postData("/getUser", loginUser)
         .then((data) => {
- var table = $("#UserName");
-    table.html("");
-    data.forEach((item) => {
-        var tr = $(`
-            <tr class="tr-table">
-                <td>${item.id}</td>
-                <td>-</td>
-                <td>${item.searchKey}</td>
-            </tr>`);
-        var linksTd = $(`<td class="td-elements"></td>`);
-        tr.append(linksTd);
-
-        if (item.links && item.links.length) {
-            item.links.forEach(t => {
-                linksTd.append(`<a class="link-result" href="${t}">${t}</a>`)
-            })
+        if(data == 1){
+            location.href = "http://localhost:8080/templates/menu.html";
         }
-
-        table.append(tr);
     });
-            return data;
-        });
 });
 
 

@@ -71,20 +71,10 @@
       <div class="col-md-6">
         <div class="food-item">
           <div>
-            <div class="form-group">
-              <h4>Add menus</h4>
-              <label for="RestaurantMenus">Name</label>
-              <input type="text" class="form-control" id="MenuName" placeholder="Name">
-            </div>
-            <div class="form-group">
-              <label for="DescribeMenu">Describe menu</label>
-              <input type="text" class="form-control" id="DescribeMenu" placeholder="Describe menu">
-            </div>
-            <div class="form-group">
-              <label>Numbers of menus:</label> <span class="w-1"  id="MenusCount"></span >
-            </div>
-            <button id="AddMenu" class="btn btn-primary mt-4">Add menu</button>
-          </div>
+            <form method="post" enctype="multipart/form-data" action="/upload">
+              <input type="file" name="image">
+              <input type="submit" value="Upload">
+            </form>
         </div>
       </div>
     </div>
@@ -92,8 +82,11 @@
 </div>
 <!-- Footer End -->
 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+</body>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-file-upload/4.0.11/jquery.uploadfile.min.js" integrity="sha512-uwNlWrX8+f31dKuSezJIHdwlROJWNkP6URRf+FSWkxSgrGRuiAreWzJLA2IpyRH9lN2H67IP5H4CxBcAshYGNw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="../..lib/easing/easing.min.js"></script>
 <script src="../..lib/owlcarousel/owl.carousel.min.js"></script>
 <script src="../..lib/tempusdominus/js/moment.min.js"></script>
@@ -103,5 +96,4 @@
 <script src="mail/contact.js"></script>
 <script src="../js/main.js"></script>
 <script src="../site.js" ></script>
-</body>
 </html>
