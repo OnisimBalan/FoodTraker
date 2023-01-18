@@ -2,7 +2,6 @@ async function postData(url = '', data = {}) {
     // Default options are marked with *
     const response = await fetch(url, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         credentials: 'same-origin', // include, *same-origin, omit
         headers: {
@@ -15,6 +14,7 @@ async function postData(url = '', data = {}) {
     });
     return response.json(); // parses JSON response into native JavaScript objects
 }
+
 async function getData(url = '') {
     // Default options are marked with *
     const response = await fetch(url, {
@@ -35,6 +35,7 @@ async function getData(url = '') {
 var MainMenu = [];
 var Count = 0;
 
+
 //ADDUSERS
 $("#AddUser").click(function () {
  const name =  $("#EmailIn").val();
@@ -43,76 +44,117 @@ $("#AddUser").click(function () {
   name: name,
   password: password
   };
-postData("/addUser",user)
+
+postData("/addUser", user)
         .then((data) => {
-            console.log(data);
-            return data;
+        console.log(data);
+            if(data == 1){
+             location.href = "http://localhost:8080/templates/menu.html";
+            }
+            else{
+            alert("Invalid user!");
+            }
         });
   });
-//ADDFOOD
-$("#AddMenu").click(function () {
- const name =  $("#MenuName").val();
- const desc =   $("#DescribeMenu").val();
 
- if(name !="" | desc !=""){
-    Count = Count + 1;
-    $("#MenusCount").html(Count);
- }
-  menu = {
-  name: name,
-  description: desc
-  };
+//make me a post request with fetch postData function
 
-  MainMenu.push(menu);
 
-  $("#MenuName").val("");
-  $("#DescribeMenu").val("");
-  });
+
 //ADDRESTAURANTS
 $("#AddRest").click(function () {
-    count = 0;
-    const name =  $("#RestaurantName").val();
-    const adress =  $("#RestaurantAdress").val();
-    const desc =   $("#DescribeRestaurant").val();
-    const menus = MainMenu;
+    const Name =  $("#RestaurantName").val();
+    const Address =  $("#RestaurantAdress").val();
+    const Description =   $("#DescribeRestaurant").val();
+    const Image = $("#imgName").val();
 
-    const rest = {
-         name:name,
-         adress:adress,
-         description:desc,
-         menus:menus,
+    const data = {
+         Name:Name,
+         Address:Address,
+         Description:Description,
+         Image:Image
     }
-    postData("/addRestaurants",rest)
-            .then((data) => {
-                console.log(data);
-                return data;
+
+    console.log(data);
+    postData("/createRestaurant", data)
+            .then((response) => {
+                console.log(response);
+                return response;
             });
+
     $("#RestaurantName").val("");
     $("#RestaurantAdress").val("");
     $("#DescribeRestaurant").val("");
-      });
+    $("#imgName").val("");
+});
+
 //submit
 $("#SubmitUser").click(function () {
-  const num =  $("#UserName").val();
-  const ema =   $("#Email").val();
-  const pass =   $("#Password").val();
-  const ad =   $("#Adresa").val();
-  const tel =   $("#Telefon").val();
+  const FirstName =  $("#FirstName").val();
+  const LastName =  $("#LastName").val();
+  const Email =   $("#Email").val();
+  const Password =   $("#Password").val();
+  const Address =   $("#Adresa").val();
+  const PhoneNumber =   $("#Telefon").val();
       const newUser = {
-          nume:num,
-          email:ema,
-          parola:pass,
-          adresa:ad,
-          telefon:tel
+      FirstName:FirstName,
+          FirstName:FirstName,
+           LastName:LastName,
+          Email:Email,
+          Password:Password,
+          Address:Address,
+          PhoneNumber:PhoneNumber
       }
-postData("/newUser",newUser)
+postData("/newUser", newUser)
         .then((data) => {
-            console.log(data);
             return data;
         });
+
+    $("#FirstName").val("");
+    $("#LastName").val("");
+    $("#Email").val("");
+    $("#Password").val("")
+    $("#Adresa").val("");
+    $("#Telefon").val("");
  });
-//viewrestaurants
-$("#RestaurantId").click(function () {
+
+
+$("#ShowRestaurants").click(function () {
+getData("/getRestaurants")
+        .then((data) => {
+         var table = $('#Restaurants');
+          table.html("");
+         var output = '<div class="container1 container">';
+            data.forEach((item) => {
+               output += `
+                     <div>${item.Name}</div>
+                     <div>Address: ${item.Address}</div>
+                     <div>Description:${item.Description}</div>
+                     <img class="mt-5 mb-5" src="../img/${item.Image}">
+                     <input type="text" id="form12" class="form-control mt-5" placeholder="Type your favorite dish"/>
+                     <button class="btn btn-primary mt-5" id="AddDish">Command</button>
+                     <div class="mt-5 mb-5 border"></div>
+               `;
+              });
+
+         table.append(output);
+     return data;
+    })
+});
+
+$("#AddDish").click(function () {
+const text =  $("#form12").val();
+if(text=="" || text==null){
+alert("Please type your favorite dish!");
+}
+else{
+    alert("Success!");
+}
+});
+
+
+//takeMenus
+$("#menus").click(function () {
 getData("/takeRestaurants")
         .then((data) => {
  var table = $("#UserName");
@@ -122,7 +164,7 @@ getData("/takeRestaurants")
             <tr class="tr-table">
                 <td>${item.id}</td>
                 <td>-</td>
-                <td>${item.searchKey}</td>
+                <td>${item}</td>
             </tr>`);
         var linksTd = $(`<td class="td-elements"></td>`);
         tr.append(linksTd);
@@ -138,32 +180,23 @@ getData("/takeRestaurants")
             return data;
         });
 });
-//takeMenus
-$("#menus").click(function () {
-getData("/takeRestaurants")
+
+$("#asd").click(function () {
+location.href = "http://localhost:8080/templates/menu.html";
+ const parola =  $("#PasswordIn").val();
+ const email =   $("#EmailIn").val();
+
+ const loginUser = {
+          email:email,
+          parola:parola,
+ }
+
+postData("/getUser", loginUser)
         .then((data) => {
- var table = $("#UserName");
-    table.html("");
-    data.forEach((item) => {
-        var tr = $(`
-            <tr class="tr-table">
-                <td>${item.id}</td>
-                <td>-</td>
-                <td>${item.searchKey}</td>
-            </tr>`);
-        var linksTd = $(`<td class="td-elements"></td>`);
-        tr.append(linksTd);
-
-        if (item.links && item.links.length) {
-            item.links.forEach(t => {
-                linksTd.append(`<a class="link-result" href="${t}">${t}</a>`)
-            })
+        if(data == 1){
+            location.href = "http://localhost:8080/templates/menu.html";
         }
-
-        table.append(tr);
     });
-            return data;
-        });
 });
 
 
